@@ -14,11 +14,29 @@
         + Bu `isim` ve `yas` i içeren bir string döndürmelidir Örnek: "Mary, 50"
 */
 
-function Kisi(/* kodlar buraya */) {
-  /* kodlar buraya */
+function Kisi(isim,yas) {
+  this.isim=isim;
+  this.yas=yas;
+  this.mide=[];
+  this.ye=function(yemek){
+    if(this.mide.length < 10){
+      this.mide.push(yemek);
+    }
+  };
+  this.bosalt=function(){
+    this.mide=[];
+  };
+  this.toString=function(){
+    return `${this.isim}, ${this.yas}`;
+  };
 }
-
-
+        const fatih = new Kisi("Fatih", 24);
+          console.log(fatih.toString());
+          fatih.ye("mercimek");
+          console.log(fatih.mide);
+          fatih.bosalt();
+          console.log(fatih.mide)
+          //`${this.isim}, ${this.yas}`
 /*
   GÖREV 2
     - Bir Araba constructoru yazın, parametre olarak `model` ve `milesPerGallon` alsın.
@@ -35,15 +53,38 @@ function Kisi(/* kodlar buraya */) {
         +  "x milde benzinim bitti!" x değişkeni `odometer` daki sayı olmalıdır.
 */
 
-function Araba(/* kodlar buraya */) {
-  /* kodlar buraya */
+function Araba(model, milesPerGallon) {
+  this.tank = 0;
+  this.odometer=0;
+  this.model=model;
+  this.milesPerGallon=milesPerGallon;
+  
+  
+  this.fill=function(gallons){
+    this.tank += gallons;
+    return this
+  };
+  // burdan aşağısı esnek kısım
+  this.drive=function(distance){
+    this.odometer += distance;
+    this.tank -= distance / this.milesPerGallon;
+    if (distance/this.milesPerGallon > this.tank){
+      return `${this.odometer} mile'de benzinim bitti!`
+    }
+    };
 }
 
+const araba = new Araba("BMW", 20);
+console.log(araba.fill(50))
+console.log(araba.drive(1000))
+console.log(araba.tank);
+console.log(araba.odometer);
+console.log(araba.milesPerGallon)
 
 /* 
   GÖREV 3
   Kendi cümlelerinizle "this" kelimesinin 4 prensibini açıklayın:
-  1. 
+  1. global scopete çalışırken window/console nesnesi olmak
   2. 
   3. 
   4. 
