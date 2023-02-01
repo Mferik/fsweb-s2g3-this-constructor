@@ -67,16 +67,20 @@ function Araba(model, milesPerGallon) {
   // burdan aşağısı esnek kısım
   this.drive=function(distance){
     this.odometer += distance;
-    this.tank -= distance / this.milesPerGallon;
-    if (distance/this.milesPerGallon > this.tank){
-      return `${this.odometer} mile'de benzinim bitti!`
+    this.tank -= Math.round(distance / this.milesPerGallon);
+    if (this.tank <= 0){
+      const extraMile=this.tank * this.milesPerGallon;
+      this.odometer+=Math.round(extraMile);
+      this.tank=0;
+      console.log( `${this.odometer} mile'de benzinim bitti!`)
     }
     };
 }
 
 const araba = new Araba("BMW", 20);
-console.log(araba.fill(50))
-console.log(araba.drive(1000))
+araba.fill(65);
+araba.drive(200);
+araba.drive(1222);
 console.log(araba.tank);
 console.log(araba.odometer);
 console.log(araba.milesPerGallon)
